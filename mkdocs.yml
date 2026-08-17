@@ -1,0 +1,77 @@
+site_name: Humanitarian Action Fabric GraphQL API
+site_description: Internal developer documentation and query catalogue for the Humanitarian Action Fabric GraphQL API
+site_url: https://un-ocha.github.io/hpc-fabric-graphql-api-docs/
+repo_url: https://github.com/UN-OCHA/hpc-fabric-graphql-api-docs
+repo_name: UN-OCHA/hpc-fabric-graphql-api-docs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  features:
+    - content.code.copy
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.suggest
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Quick start: getting-started/quick-start.md
+      - Access and permissions: getting-started/access.md
+      - Authentication: getting-started/authentication.md
+  - Client guides:
+      - Python: clients/python.md
+      - Postman and cURL: clients/postman-and-curl.md
+      - C# and Node.js: clients/applications.md
+  - Querying:
+      - Filters and variables: querying/filters-and-variables.md
+      - Pagination: querying/pagination.md
+      - Performance and limits: querying/performance-and-limits.md
+  - Query catalogue:
+      - Reference data: queries/reference-data.md
+      - Plans: queries/plans.md
+      - Projects and emergencies: queries/projects-and-emergencies.md
+      - Sectors and coordination: queries/sectors-and-coordination.md
+      - Requirements: queries/requirements.md
+      - Organizations: queries/organizations.md
+  - Reference:
+      - Data model and rules: reference/data-model.md
+      - Errors and troubleshooting: reference/errors.md
+      - Publishing this site: reference/publishing.md
+      - External references: reference/external-links.md

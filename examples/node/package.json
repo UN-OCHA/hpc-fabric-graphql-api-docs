@@ -1,0 +1,12 @@
+{
+  "name": "ha-fabric-graphql-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node query-currency.js"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.0.0"
+  }
+}
+
