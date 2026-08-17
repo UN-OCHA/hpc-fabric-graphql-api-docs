@@ -1,72 +1,78 @@
 # Humanitarian Action Fabric GraphQL API
 
-Use this API to read Humanitarian Action reference data, plans, projects,
-emergencies, sectors, coordination entities, requirements, and organizations
-through GraphQL.
+The Humanitarian Action Fabric GraphQL API provides read access to:
 
-!!! info "Current access route"
-    Approved internal consumers currently connect to the authenticated Microsoft
-    Fabric endpoint directly. A managed gateway and stable API URL are planned.
-    Keep the endpoint in configuration rather than source code: when the URL is
-    replaced, the documented GraphQL operations and variables are expected to
-    remain compatible.
+* Reference data, including currencies, countries, and years
+* Plans and emergencies
+* Projects
+* Sectors and coordination entities
+* Original and current requirements
+* Organizations and organization classifications
 
-## Endpoint
+This documentation is intended for approved internal users, developers, and application teams.
+
+## Current access route
+
+> **Important**
+>
+> Approved internal consumers currently connect directly to the authenticated Microsoft Fabric GraphQL endpoint.
+>
+> A managed API gateway and stable API URL are planned. Keep the endpoint URL in application configuration rather than hard-coding it throughout the application. When the gateway URL becomes available, consumers should only need to replace the configured endpoint. The GraphQL queries and variables are expected to remain unchanged.
+
+## GraphQL endpoint
 
 ```text
 https://d1f25c25ab8d49ceb872d91de3d331ae.zd1.graphql.fabric.microsoft.com/v1/workspaces/d1f25c25-ab8d-49ce-b872-d91de3d331ae/graphqlapis/c6a47e35-e236-423f-ac01-96f088acbc3a/graphql
 ```
 
-The endpoint is not a credential. Every request still requires a Microsoft
-Entra access token and permission on the Fabric GraphQL API item.
+The endpoint URL is not a credential. Every direct request requires:
 
-## Choose your route
+1. A valid Microsoft Entra access token.
+2. Permission to run the Fabric GraphQL API.
+3. Data-source permission when the API uses single sign-on.
 
-<div class="grid cards" markdown>
+See [Access and permissions](getting-started/access.md) for details.
 
--   :material-account-key:{ .lg .middle } **Run a query as yourself**
+## Get started
 
-    ---
+Choose the guide that matches how you intend to use the API:
 
-    Sign in interactively and run the first currency query.
+* **Run a query using your own Microsoft Entra identity:**
+  Follow the [Quick start](getting-started/quick-start.md).
 
-    [:octicons-arrow-right-24: Quick start](getting-started/quick-start.md)
+* **Use the API from Python:**
+  Follow the [Python guide](clients/python.md).
 
--   :material-language-python:{ .lg .middle } **Use Python**
+* **Use Postman or cURL:**
+  Follow the [Postman and cURL guide](clients/postman-and-curl.md).
 
-    ---
+* **Build an ETL, scheduled job, or backend service:**
+  Follow the [C# and Node.js application guide](clients/applications.md).
 
-    Use the ready-to-run script and reusable client.
+* **Find a ready-to-use query:**
+  Open the [Query catalogue](queries/reference-data.md).
 
-    [:octicons-arrow-right-24: Python guide](clients/python.md)
+* **Learn how filters and variables work:**
+  Read [Filters and variables](querying/filters-and-variables.md).
 
--   :material-database-search:{ .lg .middle } **Find a query**
-
-    ---
-
-    Copy a tested operation from the query catalogue.
-
-    [:octicons-arrow-right-24: Reference data](queries/reference-data.md)
-
--   :material-server-security:{ .lg .middle } **Build an ETL or service**
-
-    ---
-
-    Authenticate non-interactively with a dedicated application identity.
-
-    [:octicons-arrow-right-24: Application clients](clients/applications.md)
-
-</div>
+* **Retrieve more than one page of data:**
+  Read [Pagination](querying/pagination.md).
 
 ## First query
 
-This small query is a safe connectivity test:
+The following query returns the currency whose code is `USD`. It is a small and safe query for testing connectivity and permissions.
+
+### GraphQL query
 
 ```graphql
 query CurrencyByCode($code: String!) {
   currencies(
     first: 100
-    filter: { Code: { eq: $code } }
+    filter: {
+      Code: {
+        eq: $code
+      }
+    }
   ) {
     items {
       Id
@@ -78,7 +84,7 @@ query CurrencyByCode($code: String!) {
 }
 ```
 
-Variables:
+### Variables
 
 ```json
 {
@@ -86,17 +92,83 @@ Variables:
 }
 ```
 
+### Expected response structure
+
+```json
+{
+  "data": {
+    "currencies": {
+      "items": [
+        {
+          "Id": 1,
+          "Code": "USD"
+        }
+      ],
+      "hasNextPage": false,
+      "endCursor": null
+    }
+  }
+}
+```
+
+The currency ID shown above is illustrative. Use the value returned by the API.
+
+## Query catalogue
+
+Ready-to-use queries are organized by subject:
+
+* [Reference data](queries/reference-data.md)
+* [Plans](queries/plans.md)
+* [Projects and emergencies](queries/projects-and-emergencies.md)
+* [Sectors and coordination entities](queries/sectors-and-coordination.md)
+* [Requirements](queries/requirements.md)
+* [Organizations](queries/organizations.md)
+
 ## Responsible use
 
-- Select only the fields needed by the consumer.
-- Filter at the server; do not retrieve the full database and filter locally.
-- Start with pages of 100 records. A page may be increased cautiously, but
-  `first: 1000` is an operating ceiling for this API, not a target.
-- Follow `hasNextPage` and `endCursor` instead of requesting an unbounded result.
-- Paginate nested collections independently.
-- Split deeply nested or slow operations into smaller requests.
-- Do not run many large requests concurrently.
+Direct consumers share the Microsoft Fabric capacity with other applications and data workloads. Use the API carefully.
 
-See [performance and limits](querying/performance-and-limits.md) before building
-an extraction process.
+* Request only the fields required by the consumer.
+* Apply filters in GraphQL instead of retrieving all records and filtering locally.
+* Start with `first: 100`.
+* Increase the page size gradually only after testing response time and response size.
+* Do not use more than `first: 1000` without agreement from the API owner.
+* Include `hasNextPage` and `endCursor` when retrieving collections.
+* Continue subsequent pages using the `after` argument.
+* Paginate nested collections independently.
+* Split deeply nested queries into smaller operations.
+* Avoid running many large requests concurrently.
+* Cache stable reference data where appropriate.
+* Retry throttling and transient server errors with controlled exponential backoff.
+* Do not repeatedly retry invalid queries or permission errors.
 
+Before creating an extraction process or ETL, read [Performance and limits](querying/performance-and-limits.md).
+
+## Important data rules
+
+Some data requires additional processing by the consuming application:
+
+* Revision state 1 represents the original requirement.
+* Revision state 2 represents the current requirement.
+* If revision state 2 is absent, revision state 1 represents both original and current requirements.
+* A coordination entity can be linked to multiple sectors.
+* Repeating the complete coordination-entity requirement for every linked sector can overstate totals.
+* Project requirements are project-level amounts and are not organization-specific allocations.
+
+See [Data model and rules](reference/data-model.md) before calculating requirement totals.
+
+## Authentication overview
+
+Interactive users authenticate using their own Microsoft Entra identity.
+
+Unattended applications, ETLs, scheduled jobs, and backend services must use a dedicated application identity such as a service principal or managed identity. They must not automate a human user's sign-in.
+
+See [Authentication](getting-started/authentication.md) for the supported approaches.
+
+## Troubleshooting
+
+For authentication failures, permission errors, GraphQL validation errors, throttling, pagination problems, and internal execution errors, see [Errors and troubleshooting](reference/errors.md).
+
+## External references
+
+Microsoft Fabric and client-tool documentation is available under [External references](reference/external-links.md).
