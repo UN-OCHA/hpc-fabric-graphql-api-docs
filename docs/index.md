@@ -20,43 +20,14 @@ https://d1f25c25ab8d49ceb872d91de3d331ae.zd1.graphql.fabric.microsoft.com/v1/wor
 The endpoint is not a credential. Every request still requires a Microsoft
 Entra access token and permission on the Fabric GraphQL API item.
 
-## Choose your route
+## Choose how to use the API
 
-<div class="grid cards" markdown>
-
--   :material-account-key:{ .lg .middle } **Run a query as yourself**
-
-    ---
-
-    Sign in interactively and run the first currency query.
-
-    [:octicons-arrow-right-24: Quick start](getting-started/quick-start.md)
-
--   :material-language-python:{ .lg .middle } **Use Python**
-
-    ---
-
-    Use the ready-to-run script and reusable client.
-
-    [:octicons-arrow-right-24: Python guide](clients/python.md)
-
--   :material-database-search:{ .lg .middle } **Find a query**
-
-    ---
-
-    Copy a tested operation from the query catalogue.
-
-    [:octicons-arrow-right-24: Reference data](queries/reference-data.md)
-
--   :material-server-security:{ .lg .middle } **Build an ETL or service**
-
-    ---
-
-    Authenticate non-interactively with a dedicated application identity.
-
-    [:octicons-arrow-right-24: Application clients](clients/applications.md)
-
-</div>
+| What you want to do | Start here |
+| --- | --- |
+| Sign in and run a query as yourself | [Quick start](getting-started/quick-start.md) |
+| Use the ready-to-run Python client | [Python guide](clients/python.md) |
+| Find and copy a tested query | [Query catalogue](queries/reference-data.md) |
+| Build an ETL or backend service | [Application clients](clients/applications.md) |
 
 ## First query
 
