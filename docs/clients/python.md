@@ -1,27 +1,26 @@
 # Python
 
-The repository includes an interactive example for people and a reusable
-GraphQL client with conservative retries for read operations.
+The repository includes an interactive example for users and a reusable GraphQL client with conservative retries for read operations.
 
 ## Install
 
-=== "Windows PowerShell"
+### Windows PowerShell
 
-    ```powershell
-    cd examples\python
-    py -m venv .venv
-    .\.venv\Scripts\Activate.ps1
-    python -m pip install -r requirements.txt
-    ```
+```powershell
+cd examples\python
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
 
-=== "macOS or Linux"
+### macOS or Linux
 
-    ```bash
-    cd examples/python
-    python3 -m venv .venv
-    source .venv/bin/activate
-    python -m pip install -r requirements.txt
-    ```
+```bash
+cd examples/python
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
 
 ## Run the connectivity test
 
@@ -29,47 +28,25 @@ GraphQL client with conservative retries for read operations.
 python query_currency.py
 ```
 
-`DeviceCodeCredential` prints a URL and code in the terminal. Complete the
-Microsoft sign-in with the account that has API access. This flow does not store
-a password or client secret.
+`DeviceCodeCredential` prints a URL and code in the terminal. Complete the Microsoft sign-in using an account that has access to the API. This authentication flow does not store a password or client secret.
 
-The current interactive development sample requests:
+The current interactive development sample requests the following scope:
 
 ```text
 https://analysis.windows.net/powerbi/api/user_impersonation
 ```
 
-For a registered interactive application, use Microsoft's documented delegated
-scope instead:
+For a registered interactive application, use Microsoft's documented delegated scope instead:
 
 ```text
 https://analysis.windows.net/powerbi/api/GraphQLApi.Execute.All
 ```
 
-## Configure the endpoint
-
-The current endpoint is the example's default. Override it without editing code:
-
-=== "Windows PowerShell"
-
-    ```powershell
-    $env:FABRIC_GRAPHQL_ENDPOINT = "https://example/graphql"
-    python query_currency.py
-    ```
-
-=== "macOS or Linux"
-
-    ```bash
-    export FABRIC_GRAPHQL_ENDPOINT="https://example/graphql"
-    python query_currency.py
-    ```
-
-Keeping the URL in configuration makes the future gateway migration a setting
-change rather than a code change.
+Keeping the URL in configuration means that a future gateway migration will require only a configuration change rather than a code change.
 
 ## Use another operation
 
-Import `FabricGraphQLClient`, then pass a named query and variables:
+Import `FabricGraphQLClient`, then pass it a named query and its variables:
 
 ```python
 from fabric_graphql_client import FabricGraphQLClient
@@ -88,23 +65,38 @@ query PlanById($planId: Int!) {
 
 client = FabricGraphQLClient()
 data = client.execute(query, {"planId": 1202})
+
 print(data)
 ```
 
-Variables keep values separate from the query document, simplify reuse, and
-avoid unsafe string construction.
+Variables keep values separate from the query document. This simplifies query reuse and avoids unsafe string construction.
 
-## Paginate
+## Paginate results
 
-Run `python paginate_currencies.py` for a complete cursor loop. The loop sends
-the preceding page's `endCursor` as the next request's `after` value and stops
-when `hasNextPage` is false.
+Run the following example to retrieve all currency records using cursor-based pagination:
+
+```bash
+python paginate_currencies.py
+```
+
+The pagination loop:
+
+1. Reads the current page's `endCursor`.
+2. Sends that value as the next request's `after` variable.
+3. Continues while `hasNextPage` is `true`.
+4. Stops when `hasNextPage` is `false`.
 
 ## Error behavior
 
-GraphQL can return HTTP `200` with an `errors` array. The reusable client checks
-both the HTTP status and GraphQL errors. It retries only read requests returning
-`429`, `502`, `503`, or `504`, using `Retry-After` when supplied.
+GraphQL can return an HTTP `200` response containing an `errors` array. The reusable client checks both the HTTP status code and GraphQL errors.
 
-Do not log access tokens. Do not copy the example's retry behavior to mutations.
+For read requests, it retries only the following temporary HTTP errors:
 
+- `429` — Too Many Requests
+- `502` — Bad Gateway
+- `503` — Service Unavailable
+- `504` — Gateway Timeout
+
+When the server supplies a `Retry-After` header, the client uses it to determine how long to wait before retrying.
+
+Do not log access tokens. Do not copy the example's retry behavior to GraphQL mutations.
