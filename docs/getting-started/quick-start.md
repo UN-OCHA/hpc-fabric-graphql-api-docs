@@ -21,21 +21,21 @@ terminal in that directory.
 
 ## 3. Create a Python environment
 
-=== "Windows PowerShell"
+### Windows PowerShell
 
-    ```powershell
-    py -m venv .venv
-    .\.venv\Scripts\Activate.ps1
-    python -m pip install -r requirements.txt
-    ```
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
 
-=== "macOS or Linux"
+### macOS or Linux
 
-    ```bash
-    python3 -m venv .venv
-    source .venv/bin/activate
-    python -m pip install -r requirements.txt
-    ```
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
 
 ## 4. Run the query
 
