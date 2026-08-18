@@ -1,3 +1,4 @@
+# Python 3.10 or later is required by the example source code.
+# azure-identity includes the platform support used for encrypted token caching.
 azure-identity>=1.17,<2
 requests>=2.32,<3
-
