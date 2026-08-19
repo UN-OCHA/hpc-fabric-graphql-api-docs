@@ -17,10 +17,10 @@ The API provides read-only access to reference data, plans, projects, emergencie
 Instructions and examples are available for:
 
 - [Python](docs/clients/python.md)
-- [C#](docs/clients/csharp.md)
-- [Node.js](docs/clients/node.md)
-- [Postman](docs/clients/postman.md)
-- [cURL](docs/clients/curl.md)
+- [C#](docs/clients/applications.md)
+- [Node.js](docs/clients/applications.md)
+- ~~[Postman](docs/clients/postman.md)~~
+- ~~[cURL](docs/clients/curl.md)~~
 - [Applications and ETLs](docs/clients/applications.md)
 
 ## Run the Python example
