@@ -1,3 +1,0 @@
-D:\hpc\datastore\hpc-data-integration\database\Hpc.Database\Hpc.Api.Database\bin\Release\Hpc.Api.Database.dacpac
-D:\hpc\datastore\hpc-data-integration\database\Hpc.Database\Hpc.Api.Database\bin\Release\master.dacpac
-D:\hpc\datastore\hpc-data-integration\database\Hpc.Database\Hpc.Api.Database\obj\Release\Hpc.Api..06C1BA86.Up2Date

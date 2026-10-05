@@ -1,8 +1,0 @@
-D:\hpc\datastore\hpc-data-integration\database\Hpc.Database\Hpc.Api.Database\bin\Local\Release\Hpc.Api.Database.Local.dacpac
-D:\hpc\datastore\hpc-data-integration\database\Hpc.Database\Hpc.Api.Database\bin\Local\Release\master.dacpac
-D:\hpc\datastore\hpc-data-integration\database\Hpc.Database\Hpc.Api.Database\obj\Local\Release\Hpc.Api..80A2B8FF.Up2Date
-D:\hpc\datastore\hpc-data-integration\database\Hpc.Database\Hpc.Api.Database\obj\Local\Release\Model.xml
-D:\hpc\datastore\hpc-data-integration\database\Hpc.Database\Hpc.Api.Database\obj\Local\Release\refactor.xml
-D:\hpc\datastore\hpc-data-integration\database\Hpc.Database\Hpc.Api.Database\obj\Local\Release\postdeploy.sql
-D:\hpc\datastore\hpc-data-integration\database\Hpc.Database\Hpc.Api.Database\obj\Local\Release\predeploy.sql
-D:\hpc\datastore\hpc-data-integration\database\Hpc.Database\Hpc.Api.Database\obj\Local\Release\preplan.sql
