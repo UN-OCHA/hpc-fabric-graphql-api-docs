@@ -1,78 +1,74 @@
 # Humanitarian Action Fabric GraphQL API
 
-Internal documentation and reusable client examples for the Humanitarian Action
-Microsoft Fabric GraphQL API.
+Documentation and examples for using the Humanitarian Action Microsoft Fabric GraphQL API.
 
-The documentation covers:
+The API provides read-only access to reference data, plans, projects, emergencies, sectors, coordination entities, caseloads, requirements, organizations and related data.
 
-- access and authentication for people and unattended applications;
-- Python, C#, Node.js, Postman, and cURL examples;
-- filtering, variables, ordering, and cursor pagination;
-- ready-to-use queries for plans, projects, emergencies, sectors, requirements,
-  and organizations;
-- current Fabric limits and API-specific data rules.
+## Start here
 
-## Read the documentation
+- [Documentation home](docs/index.md)
+- [Quick start](docs/getting-started/quick-start.md)
+- [Query catalogue](docs/queries/reference-data.md)
+- [Authentication](docs/getting-started/authentication.md)
+- [Performance and limits](docs/querying/performance-and-limits.md)
 
-Start with [Documentation home](docs/index.md), then follow the
-[quick start](docs/getting-started/quick-start.md).
+## Client guides
 
-The Markdown files render directly on GitHub. For a searchable documentation
-site with navigation and copy buttons on every code block, run the Material for
-MkDocs site locally:
+Instructions and examples are available for:
 
-```bash
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-python -m pip install -r requirements-docs.txt
-mkdocs serve
-```
-
-Open <http://127.0.0.1:8000>. Build the static site with:
-
-```bash
-mkdocs build --strict
-```
-
-The included GitHub Pages workflow is manual. Before running it, an organization
-administrator must confirm that the Pages site will be **private**. See
-[Publishing this site](docs/reference/publishing.md).
+- [Python](docs/clients/python.md)
+- [C#](docs/clients/applications.md)
+- [Node.js](docs/clients/applications.md)
+- ~~[Postman](docs/clients/postman.md)~~
+- ~~[cURL](docs/clients/curl.md)~~
+- [Applications and ETLs](docs/clients/applications.md)
 
 ## Run the Python example
 
-```bash
-cd examples/python
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
+### Windows PowerShell
+
+```powershell
+cd examples\python
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 python query_currency.py
 ```
 
-The script uses an interactive Microsoft Entra sign-in and never stores a
-password, client secret, or access token. See the
-[Python guide](docs/clients/python.md) for configuration and troubleshooting.
+### macOS or Linux
 
-## Repository layout
-
-```text
-docs/                  Documentation source
-examples/python/       Interactive user example and reusable client
-examples/csharp/       Unattended service-principal example
-examples/node/         Unattended service-principal example
-scripts/               Documentation validation utilities
-.github/workflows/      Strict build check and manual Pages deployment
-mkdocs.yml             Site navigation and theme configuration
+```bash
+cd examples/python
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python query_currency.py
 ```
+
+The example opens Microsoft Entra sign-in in your browser and runs a small currency query under your identity.
+
+## Responsible use
+
+- Select only the fields you need.
+- Apply filters in the GraphQL query.
+- Start with pages of 100 records.
+- Use `hasNextPage` and `endCursor` to retrieve additional pages.
+- Avoid large, deeply nested or highly concurrent queries.
 
 ## Security
 
-Do not commit client secrets, bearer tokens, database connection strings, or
-response data containing sensitive information. Keep unattended credentials in
-an approved secret store and rotate them according to organizational policy.
+Do not commit or share:
 
-## Updating the documentation
+- Client secrets
+- Access tokens
+- APIM subscription keys
+- Database connection strings
+- Sensitive API response data
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Query changes should be checked against
-the current exported schema and tested in the Fabric GraphQL editor before
-review. The package's 33 complete GraphQL examples were validated against the
-schema supplied with the initial documentation set.
+Keep application credentials in an approved secret store.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) before changing the documentation or query examples.
+
+Test query changes against the current GraphQL schema before submitting them for review.

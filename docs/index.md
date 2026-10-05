@@ -43,8 +43,8 @@ Choose the guide that matches how you intend to use the API:
 * **Use the API from Python:**
   Follow the [Python guide](clients/python.md).
 
-* **Use Postman or cURL:**
-  Follow the [Postman and cURL guide](clients/postman-and-curl.md).
+* ~~**Use Postman or cURL:**~~
+  ~~Follow the [Postman and cURL guide](clients/postman-and-curl.md).~~
 
 * **Build an ETL, scheduled job, or backend service:**
   Follow the [C# and Node.js application guide](clients/applications.md).
