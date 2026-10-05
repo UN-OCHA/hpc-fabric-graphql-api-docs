@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build">
+  <Sdk Name="Microsoft.Build.Sql" Version="2.3.0" />
+
+  <PropertyGroup>
+    <Name>Hpc.Api.Database.Local</Name>
+    <ProjectGuid>{D30CD108-7F44-45B2-B715-90737314C3D2}</ProjectGuid>
+
+    <!-- SQL Server 2025 -->
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql170DatabaseSchemaProvider</DSP>
+    <ModelCollation>1033, CI</ModelCollation>
+
+    <!-- Prevent collision with the Fabric project outputs -->    
+    <OutputPath>bin\Local\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SqlServer.Dacpacs.Master">
+      <Version>170.0.4</Version>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Exclude everything under dba from local SQL Server builds -->
+    <Build Remove="dba\**\*.sql" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,41 @@
+CREATE TABLE [serve].[Plan] (
+    [Id]                             INT             NOT NULL,
+    [Name]                           NVARCHAR (500)  NOT NULL,
+    [ShortName]                      NVARCHAR (250)  NULL,
+    [Description]                    NVARCHAR (2000) NULL,
+    [VisibilityGroupId]              TINYINT         CONSTRAINT [DF_serve_Plan_VisibilityGroupId] DEFAULT ((1)) NOT NULL,
+    [PlanSubTitle]                   NVARCHAR (250)  NULL,
+    [StartDate]                      DATE            NULL,
+    [EndDate]                        DATE            NULL,
+    [PlanType]                       NVARCHAR (250)  NULL,
+    [PlanLanguage]                   NVARCHAR (50)   NULL,
+    [PlanLanguageCode]               NVARCHAR (5)    NULL,
+    [PlanClusterType]                NVARCHAR (50)   NULL,
+    [PlanCosting]                    NVARCHAR (500)  NULL,
+    [IsPartOfGHO]                    BIT             CONSTRAINT [DF_serve_Plan_IsPartOfGHO] DEFAULT ((0)) NOT NULL,
+    [IsForHPCProjects]               BIT             CONSTRAINT [DF_serve_Plan_IsForHPCProjects] DEFAULT ((0)) NOT NULL,
+    [IsReleased]                     BIT             CONSTRAINT [DF_serve_Plan_IsReleased] DEFAULT ((0)) NOT NULL,
+    [ReleasedDate]                   DATE            NULL,
+    [RevisionState]                  NVARCHAR (100)  NULL,
+    [IsRestricted]                   BIT             CONSTRAINT [DF_serve_Plan_IsRestricted] DEFAULT ((0)) NOT NULL,
+    [PlanCode]                       NVARCHAR (50)   NULL,
+    [CustomLocationCode]             NVARCHAR (50)   NULL,
+    [FocusedLocationName]            NVARCHAR (250)  NULL,
+    [FocusedLocationId]              INT             NULL,
+    [CurrentReportingPeriodId]       INT             NULL,
+    [LastPublishedReportingPeriodId] INT             NULL,
+    [DocumentPublishDate]            DATE            NULL,
+    [RecordStatus]                   VARCHAR (20)    CONSTRAINT [DF_serve_Plan_RecordStatus] DEFAULT ('Active') NOT NULL,
+    [ActiveUntil]                    DATETIME2 (0)   NULL,
+    [CreatedAt]                      DATETIME2 (0)   NULL,
+    [UpdatedAt]                      DATETIME2 (0)   NULL,
+    [RefreshedAt]                    DATETIME2 (0)   CONSTRAINT [DF_serve_Plan_RefreshedAt] DEFAULT (sysutcdatetime()) NOT NULL,
+    [IsLegacyCurrentVersion]         BIT             CONSTRAINT [DF_serve_Plan_IsLegacyCurrentVersion] DEFAULT ((1)) NOT NULL,
+    CONSTRAINT [PK_serve_Plan] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [CK_serve_Plan_RecordStatus] CHECK ([RecordStatus]='Deleted' OR [RecordStatus]='Inactive' OR [RecordStatus]='Active'),
+    CONSTRAINT [FK_serve_Plan_VisibilityGroup] FOREIGN KEY ([VisibilityGroupId]) REFERENCES [serve].[VisibilityGroup] ([Id])
+);
+
+
+GO
+

@@ -1,0 +1,76 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\hpc\\datastore\\hpc-data-integration\\database\\Hpc.Database\\Hpc.Api.Database\\Hpc.Api.Database.Local.sqlproj": {}
+  },
+  "projects": {
+    "D:\\hpc\\datastore\\hpc-data-integration\\database\\Hpc.Database\\Hpc.Api.Database\\Hpc.Api.Database.Local.sqlproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\hpc\\datastore\\hpc-data-integration\\database\\Hpc.Database\\Hpc.Api.Database\\Hpc.Api.Database.Local.sqlproj",
+        "projectName": "Hpc.Api.Database.Local",
+        "projectPath": "D:\\hpc\\datastore\\hpc-data-integration\\database\\Hpc.Database\\Hpc.Api.Database\\Hpc.Api.Database.Local.sqlproj",
+        "packagesPath": "C:\\Users\\nadeem\\.nuget\\packages\\",
+        "outputPath": "D:\\hpc\\datastore\\hpc-data-integration\\database\\Hpc.Database\\Hpc.Api.Database\\obj\\Local\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\nadeem\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "framework": "netstandard2.1",
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "noWarn": [
+            "NU5128"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.400"
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "framework": "netstandard2.1",
+          "targetAlias": "netstandard2.1",
+          "dependencies": {
+            "Microsoft.SqlServer.Dacpacs.Master": {
+              "target": "Package",
+              "version": "[170.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

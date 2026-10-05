@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9nIRDQSla1E=",
+  "success": true,
+  "projectFilePath": "D:\\hpc\\datastore\\hpc-data-integration\\database\\Hpc.Database\\Hpc.Api.Database\\Hpc.Api.Database.sqlproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nadeem\\.nuget\\packages\\microsoft.sqlserver.dacpacs.dbfabric\\170.0.4\\microsoft.sqlserver.dacpacs.dbfabric.170.0.4.nupkg.sha512"
+  ],
+  "logs": []
+}

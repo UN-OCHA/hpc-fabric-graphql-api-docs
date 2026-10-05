@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --primary: #006bb6;
+            --primary-dark: #004f88;
+            --primary-light: #eaf6fc;
+            --navy: #16324f;
+            --text: #263442;
+            --muted: #5f6f7e;
+            --border: #dce4eb;
+            --background: #f5f8fa;
+            --white: #ffffff;
+            --warning-background: #fff8e6;
+            --warning-border: #e5a900;
+            --shadow: 0 5px 18px rgba(22, 50, 79, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: "Segoe UI", Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            text-align: left;
+        }
+
+        a {
+            color: var(--primary);
+        }
+
+        .page {
+            width: 100%;
+        }
+
+        /* Hero */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 68px 24px;
+            color: var(--white);
+            background:
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(255, 255, 255, 0.15),
+                    transparent 28%
+                ),
+                linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+
+        .hero::after {
+            position: absolute;
+            right: -100px;
+            bottom: -150px;
+            width: 420px;
+            height: 420px;
+            border: 70px solid rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            content: "";
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 6px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.10);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            max-width: 780px;
+            margin: 0 0 18px;
+            color: var(--white);
+            font-size: 44px;
+            font-weight: 650;
+            line-height: 1.15;
+        }
+
+        .hero-description {
+            max-width: 760px;
+            margin: 0 0 30px;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 19px;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 12px 21px;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.2;
+            text-decoration: none;
+            transition:
+                transform 0.2s ease,
+                background-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .button:hover,
+        .button:focus {
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .button-primary {
+            background: var(--white);
+            color: var(--primary-dark);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .button-primary:hover,
+        .button-primary:focus {
+            background: #f2f8fc;
+        }
+
+        .button-secondary {
+            border-color: rgba(255, 255, 255, 0.55);
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .button-secondary:hover,
+        .button-secondary:focus {
+            background: rgba(255, 255, 255, 0.16);
+        }
+
+        /* Main content */
+
+        .content {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 24px 70px;
+        }
+
+        .section {
+            margin-bottom: 52px;
+        }
+
+        .section-heading {
+            max-width: 750px;
+            margin-bottom: 24px;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 8px;
+            color: var(--navy);
+            font-size: 30px;
+            font-weight: 650;
+            line-height: 1.25;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        /* Overview cards */
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            padding: 25px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .card-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            margin-bottom: 17px;
+            border-radius: 9px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .card h3 {
+            margin: 0 0 9px;
+            color: var(--navy);
+            font-size: 20px;
+            line-height: 1.35;
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        /* REST and GraphQL comparison */
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .comparison-column {
+            padding: 28px;
+        }
+
+        .comparison-column + .comparison-column {
+            border-left: 1px solid var(--border);
+        }
+
+        .comparison-column.graphql {
+            background: #f3faff;
+        }
+
+        .comparison-label {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 4px 9px;
+            border-radius: 4px;
+            background: #e8edf2;
+            color: #435466;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .graphql .comparison-label {
+            background: #d7eefb;
+            color: var(--primary-dark);
+        }
+
+        .comparison h3 {
+            margin: 0 0 10px;
+            color: var(--navy);
+            font-size: 21px;
+        }
+
+        .comparison p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        /* Steps */
+
+        .steps {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            counter-reset: portal-step;
+        }
+
+        .steps li {
+            position: relative;
+            min-height: 62px;
+            margin-bottom: 12px;
+            padding: 17px 20px 17px 67px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--white);
+            counter-increment: portal-step;
+        }
+
+        .steps li::before {
+            position: absolute;
+            top: 14px;
+            left: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 15px;
+            font-weight: 700;
+            content: counter(portal-step);
+        }
+
+        .steps a {
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .steps a:hover,
+        .steps a:focus {
+            text-decoration: underline;
+        }
+
+        /* Notices */
+
+        .notice {
+            display: flex;
+            gap: 18px;
+            padding: 24px;
+            border: 1px solid var(--warning-border);
+            border-left: 6px solid var(--warning-border);
+            border-radius: 8px;
+            background: var(--warning-background);
+        }
+
+        .notice-icon {
+            display: flex;
+            flex: 0 0 38px;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--warning-border);
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .notice h2 {
+            margin: 0 0 8px;
+            color: #644b00;
+            font-size: 22px;
+        }
+
+        .notice p {
+            margin: 0 0 10px;
+        }
+
+        .notice ul {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px 30px;
+            margin: 12px 0;
+            padding-left: 22px;
+        }
+
+        .notice-footer {
+            color: #5c4a13;
+            font-weight: 600;
+        }
+
+        /* Access and documentation */
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .support-card {
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .support-card h2 {
+            margin: 0 0 10px;
+            color: var(--navy);
+            font-size: 23px;
+        }
+
+        .support-card p {
+            margin: 0 0 15px;
+            color: var(--muted);
+        }
+
+        .text-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--primary);
+            font-weight: 650;
+            text-decoration: none;
+        }
+
+        .text-link:hover,
+        .text-link:focus {
+            text-decoration: underline;
+        }
+
+        .contact {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .contact strong {
+            color: var(--navy);
+        }
+
+        /* Footer */
+
+        .footer {
+            padding: 25px 24px;
+            border-top: 1px solid var(--border);
+            background: var(--white);
+            color: var(--muted);
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* Responsive layout */
+
+        @media (max-width: 800px) {
+            .hero {
+                padding: 50px 20px;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+
+            .card-grid,
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-column + .comparison-column {
+                border-top: 1px solid var(--border);
+                border-left: 0;
+            }
+
+            .notice ul {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero-description {
+                font-size: 17px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .content {
+                padding: 38px 16px 55px;
+            }
+
+            .section-heading h2 {
+                font-size: 26px;
+            }
+
+            .notice {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <header class="hero">
+            <div class="hero-content">
+                <div class="eyebrow">OCHA-HSD-SPPB</div>
+
+                <h1>Humanitarian Action GraphQL API Playground</h1>
+
+                <p class="hero-description">
+                    Explore approved example queries, learn how the GraphQL API
+                    is structured, and inspect the resulting humanitarian data
+                    in JSON format.
+                </p>
+
+                <div class="hero-actions">
+                    <a
+                        class="button button-primary"
+                        href="/sample-queries"
+                        target="_top"
+                    >
+                        View sample queries
+                    </a>
+
+                    <a
+                        class="button button-secondary"
+                        href="/apis"
+                        target="_top"
+                    >
+                        Open the API console
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <section class="section">
+                <div class="section-heading">
+                    <h2>What you can do here</h2>
+                    <p>
+                        This playground is designed for learning, validation
+                        and small, occasional tests.
+                    </p>
+                </div>
+
+                <div class="card-grid">
+                    <article class="card">
+                        <div class="card-number">1</div>
+                        <h3>Learn the API</h3>
+                        <p>
+                            Understand the main data objects, relationships,
+                            filters and pagination model.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-number">2</div>
+                        <h3>Copy an example</h3>
+                        <p>
+                            Start with a prepared GraphQL query and its
+                            accompanying variables.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-number">3</div>
+                        <h3>Inspect the response</h3>
+                        <p>
+                            Run the query in the API console and review the
+                            returned JSON data.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-heading">
+                    <h2>What is the GraphQL API?</h2>
+                    <p>
+                        The Humanitarian Action GraphQL API provides read-only
+                        access to humanitarian planning and response data.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <p>
+                        The API includes reference data, plans, projects,
+                        emergencies, sectors, coordination entities,
+                        requirements and organizations.
+                    </p>
+
+                    <p>
+                        With GraphQL, you specify the fields you need. You can
+                        also request related data in the same query. The JSON
+                        response follows the structure of your query.
+                    </p>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-heading">
+                    <h2>GraphQL and REST</h2>
+                    <p>
+                        The main difference is how clients identify the data
+                        they want to retrieve.
+                    </p>
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-column">
+                        <span class="comparison-label">REST</span>
+                        <h3>Multiple resource URLs</h3>
+                        <p>
+                            REST commonly provides separate URLs for resources
+                            such as plans, projects and emergencies. The server
+                            defines the standard response returned by each URL.
+                        </p>
+                    </div>
+
+                    <div class="comparison-column graphql">
+                        <span class="comparison-label">GraphQL</span>
+                        <h3>One endpoint, flexible queries</h3>
+                        <p>
+                            A GraphQL request identifies the data, fields,
+                            filters, related records and pagination instructions
+                            required by the client.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-heading">
+                    <h2>How to try a query</h2>
+                    <p>
+                        Follow these steps after you have registered and
+                        received permission to use the API.
+                    </p>
+                </div>
+
+                <ol class="steps">
+                    <li>
+                        Sign in to the developer portal and complete your
+                        registration.
+                    </li>
+
+                    <li>
+                        Wait for an administrator to grant the required API
+                        permission. You do not need to subscribe to a product.
+                    </li>
+
+                    <li>
+                        Open the
+                        <a href="/sample-queries" target="_top">
+                            Sample Queries
+                        </a>
+                        page.
+                    </li>
+
+                    <li>
+                        Select an example and copy its GraphQL query and
+                        variables.
+                    </li>
+
+                    <li>
+                        Open the
+                        <a href="/apis" target="_top">APIs</a>
+                        page and select <strong>api-hpc-prod - v1</strong>.
+                    </li>
+
+                    <li>
+                        Select <strong>Try this operation</strong> to open the
+                        test console.
+                    </li>
+
+                    <li>
+                        Paste the GraphQL query into the query field and its JSON
+                        variables into the variables field.
+                    </li>
+
+                    <li>
+                        Change the variable values if needed, send the request
+                        and review the returned JSON response.
+                    </li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <div class="notice">
+                    <div class="notice-icon" aria-hidden="true">!</div>
+
+                    <div>
+                        <h2>This portal is for testing only</h2>
+
+                        <p>
+                            Use the playground for small, occasional requests.
+                            It is not the supported connection route for:
+                        </p>
+
+                        <ul>
+                            <li>Production applications</li>
+                            <li>Scheduled jobs or ETLs</li>
+                            <li>Large data downloads</li>
+                            <li>High-volume requests</li>
+                            <li>Long-running or deeply nested queries</li>
+                            <li>Multiple large concurrent requests</li>
+                        </ul>
+
+                        <p class="notice-footer">
+                            Start with no more than 100 records and use GraphQL
+                            pagination when additional records are required.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="support-grid">
+                    <article class="support-card">
+                        <h2>Need direct API access?</h2>
+
+                        <p>
+                            For regular use from Python, C#, Node.js, Postman,
+                            Excel, an ETL or another application, request direct
+                            access to the Microsoft Fabric GraphQL API.
+                        </p>
+
+                        <div class="contact">
+                            <strong>Contact:</strong> SPPB-Tools team
+                        </div>
+                    </article>
+
+                    <article class="support-card">
+                        <h2>Technical documentation</h2>
+
+                        <p>
+                            Detailed schemas, reusable queries, authentication
+                            guidance and client examples are maintained in the
+                            private documentation repository.
+                        </p>
+
+                        <a
+                            class="text-link"
+                            href="https://github.com/UN-OCHA/hpc-fabric-graphql-api-docs"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Open the documentation repository
+                            <span aria-hidden="true">&rarr;</span>
+                        </a>
+
+                        <div class="contact">
+                            Contact the <strong>SPPB-Tools team</strong> if you
+                            need access to the repository.
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <p>
+                Humanitarian Action GraphQL API &mdash; read-only humanitarian
+                planning and response data
+            </p>
+        </footer>
+
+    </div>
+</body>
+</html>
