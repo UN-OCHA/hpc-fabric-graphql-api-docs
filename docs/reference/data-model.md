@@ -1,93 +1,59 @@
-# Data model and rules
+# Data rules
+
+These rules describe the supplied query examples. Check the published schema and
+the existing `api-schema/` view definitions when extending them.
 
 ## Main relationships
 
-| Starting entity | Related data |
+| Entity | Related information |
 | --- | --- |
-| Plan | Period/year, location, emergency, project, coordination entity, organization, attachment |
-| Project | Plan, sector, coordination entity, organization, location |
-| Coordination entity | Plan, sector, entity type, cost attachment |
-| Attachment | Plan or other entity and its attachment facts |
-| Attachment fact | Requirement value and revision state |
-| Sector | Coordination entity through `SectorCoordinationEntityRel` |
-| Organization | Plans, projects, categories, locations, hierarchy relationships |
+| Plan | Periods, locations, projects, organizations, coordination entities, attachments |
+| Project | Plan, sectors, organizations, coordination entities |
+| Coordination entity | Plan, sectors, entity type and cost attachments |
+| Attachment | Entity and attachment facts |
+| Attachment fact | Requirement amount and revision state |
+| Organization | Categories, projects, locations and hierarchy links |
 
-Relationships exposed in the GraphQL schema do not guarantee that every
-historical record has a populated foreign key. They also do not turn a
-many-to-many relationship into a one-to-one relationship.
+Not every historical relationship is populated. Many relationships have multiple
+records; joining them can repeat the same amount.
 
-## Requirement revision logic
+## Original and current requirements
 
-```text
-RevisionStateId 1 = original requirement
-RevisionStateId 2 = current requirement
-If state 2 is absent, state 1 represents both original and current
-```
+Requirement amounts in the examples use `AttachmentFact.ValueNum`:
 
-Apply fallback at the entity being reported—not once for an entire result set.
-For example, a sector report should apply the rule independently for each
-coordination entity before it aggregates values.
+- Revision state 1: original requirement.
+- Revision state 2: current requirement.
+- If state 2 is absent, use state 1 as both original and current.
 
-## Sector requirement relationship
+Apply fallback per entity being reported, after collecting all relevant rows.
+A current value of zero is a value; it is not the same as a missing current record.
+The requirement examples filter cost attachments and `IsTotal: true`.
+Do not add total rows to their breakdown rows.
 
-Follow sector costs through these two paths and join on the coordination entity:
+## Sector amounts
 
-```text
-Attachment.EntityId
-  -> CoordinationEntity.Id
-  -> SectorCoordinationEntityRel
-  -> Sector.Id
+The requirement example joins `attachment.EntityId` to the coordination entity ID,
+then follows its sector relationship. Do not rely only on
+`AttachmentFact.SectorId`; total rows can have a null sector ID.
 
-Attachment.Id
-  -> AttachmentFact.AttachmentId
-```
+A coordination entity can cover several sectors. Assigning its whole cost to
+each sector duplicates the amount. Use an agreed allocation rule or report the
+combined entity total. [Requirement queries](../queries/requirements.md) show
+the separate roots and join keys.
 
-Do not depend only on `AttachmentFact.SectorId`; it can be null for historical
-records.
+## Projects and organizations
 
-One coordination entity can be linked to several sectors. Repeating its entire
-cost for each sector overstates the total. Consumers need an agreed allocation
-or reporting rule for that case.
+`Project.CurrentRequestedFunds` belongs to the project. If the project is linked
+to several organizations, its amount must not be counted once per organization.
+The supplied examples do not provide organization-specific allocations or a
+separate project original requirement.
 
-## Project and organization amounts
+Organization classifications use category relationships in the supplied examples.
+Discover category values before filtering by type or level. Hierarchy queries
+return parent-child links; calculate depth in the consuming application.
 
-`Project.CurrentRequestedFunds` is a project-level amount. If one project has
-several organizations, the same value is returned alongside each related
-organization. It is not an organization-specific allocation.
+## Coverage
 
-The current schema does not expose a separate project original requirement or a
-specific allocation of requirements between organizations.
-
-## Organization classifications
-
-Organization type and level are not direct scalar fields in the current schema.
-Where those concepts are represented by categories, first discover the category
-types and exact category values, then filter through the `category` relationship.
-
-Organization hierarchy is exposed as parent-child edges. The API does not
-calculate hierarchy depth.
-
-## FTS funding-flow coverage
-
-The current GraphQL schema covers plan metadata and requirements, but not the
-complete FTS funding-flow model.
-
-| Information | Current schema |
-| --- | --- |
-| Countries, years, currencies | Available |
-| Plans, projects, emergencies | Available |
-| Sectors, coordination entities | Available |
-| Plan original/current requirements | Available |
-| Coordination-entity requirement rows | Available |
-| Project current requested funds | Available |
-| Project original requirements | Not exposed |
-| Organization-specific requirement allocations | Not exposed |
-| Funding totals and progress | Not exposed |
-| Funding sources and donors | Not exposed |
-| Funding trends | Not exposed |
-| Shared, overlap, and single funding | Not exposed |
-
-Funding-source, trend, and funding-flow custom-search endpoints cannot be
-reproduced exactly until the required funding-flow data is included in the
-Fabric GraphQL API.
-
+The catalogue covers metadata and requirements. It does not provide examples
+for FTS funding flows, donors, funding trends or progress totals. Confirm that
+the required data is exposed before attempting to replace those integrations.

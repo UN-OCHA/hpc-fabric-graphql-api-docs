@@ -1,5 +1,9 @@
 # Requirement queries
 
+Send each operation to the APIM endpoint as `query`, with the shown
+`variables` in the same JSON body. Example IDs are sample values; replace them
+with IDs from your data. Follow each collection's `hasNextPage` and `endCursor`.
+
 Requirement amounts are stored in `AttachmentFact.ValueNum`. Revision state 1
 is original and revision state 2 is current. When state 2 is absent for an
 entity, use state 1 as both original and current.
@@ -65,11 +69,14 @@ query PlanRequirements($planId: Int!) {
 }
 ```
 
+Variables:
+
 ```json
 {
   "planId": 1202
 }
 ```
+
 
 If `currentRequirements.groupBy` is empty, use the original amount as the
 current amount in the consuming application.
@@ -120,6 +127,8 @@ query PlanRequirementRowsByYear(
 }
 ```
 
+Variables:
+
 ```json
 {
   "year": 2026,
@@ -128,14 +137,14 @@ query PlanRequirementRowsByYear(
 }
 ```
 
+
 Group the complete result by `attachment.PlanId + RevisionStateId`, then apply
 the state-2 fallback per plan.
 
 ## Sector and coordination-entity requirement rows
 
 This operation deliberately uses two shallow root selections rather than
-nesting attachments and grouped facts under every coordination entity. It is
-more reliable and exposes the keys required for a client-side join.
+nesting attachments and grouped facts under every coordination entity. It exposes the keys required for a client-side join.
 
 ```graphql
 query SectorRequirementRowsByPlan(
@@ -217,6 +226,8 @@ query SectorRequirementRowsByPlan(
 }
 ```
 
+Variables:
+
 ```json
 {
   "planId": 1202,
@@ -227,6 +238,7 @@ query SectorRequirementRowsByPlan(
 }
 ```
 
+
 Join `costFacts.items[].attachment.EntityId` to
 `coordinationEntities.items[].coordinationEntityId`. Paginate both root
 connections and any sector list reporting another page. Apply revision fallback
@@ -236,4 +248,3 @@ per coordination entity before sector aggregation.
     A coordination entity can be linked to multiple sectors. Assigning its full
     cost to every sector duplicates the amount. A business allocation rule is
     required before producing sector totals.
-

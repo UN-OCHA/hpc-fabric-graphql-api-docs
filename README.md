@@ -1,74 +1,80 @@
-# Humanitarian Action Fabric GraphQL API
+# Humanitarian Action API
 
-Documentation and examples for using the Humanitarian Action Microsoft Fabric GraphQL API.
+Documentation, GraphQL queries and working client examples for the Humanitarian Action API.
 
-The API provides read-only access to reference data, plans, projects, emergencies, sectors, coordination entities, caseloads, requirements, organizations and related data.
+Endpoint: `https://hpc-apims.azure-api.net/v1`
 
-## Start here
+Developer portal: <https://hpc-apims.developer.azure-api.net/>
 
-- [Documentation home](docs/index.md)
-- [Quick start](docs/getting-started/quick-start.md)
-- [Query catalogue](docs/queries/reference-data.md)
-- [Authentication](docs/getting-started/authentication.md)
-- [Performance and limits](docs/querying/performance-and-limits.md)
+## Get started
 
-## Client guides
+1. Register on the developer portal with any valid email address and a password.
+2. Subscribe to the API product and obtain a subscription key; approval may be required.
+   Alternatively, ask the API developers for a key or use the key shared with you.
+3. Follow the [quick start](docs/getting-started/quick-start.md).
 
-Instructions and examples are available for:
+Send the key in the `Ocp-Apim-Subscription-Key` header. Keep real keys out of Git.
 
-- [Python](docs/clients/python.md)
-- [C#](docs/clients/applications.md)
-- [Node.js](docs/clients/applications.md)
-- ~~[Postman](docs/clients/postman.md)~~
-- ~~[cURL](docs/clients/curl.md)~~
-- [Applications and ETLs](docs/clients/applications.md)
+## What is in this repository?
 
-## Run the Python example
+| Folder | Contents |
+| --- | --- |
+| `docs/` | Setup, query catalogue, data rules and troubleshooting |
+| `examples/` | C#, Node.js, Python and Drupal (PHP) samples |
+| `api-schema/` | SQL view definitions for the objects exposed by the GraphQL API; maintained separately and retained in your existing checkout |
+| `scripts/` | GraphQL syntax and optional schema validation |
+| `.github/workflows/` | Documentation checks and manual GitHub Pages publishing |
 
-### Windows PowerShell
+The `api-schema/` folder is not included in this package. Keep your existing copy.
+
+## Run an example
+
+From the repository root in PowerShell:
 
 ```powershell
-cd examples\python
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python query_currency.py
+$env:APIM_SUBSCRIPTION_KEY = 'replace-with-your-subscription-key'
+
+# Choose the runtime you have installed.
+dotnet run --project ./examples/csharp/HaApimExamples.csproj -- currency USD
+node ./examples/node/example.mjs currency USD
+python3 ./examples/python/example.py currency USD
 ```
 
-### macOS or Linux
+On Windows, `py` or `python` can be used instead of `python3`.
+On Linux/macOS, set the key with `export APIM_SUBSCRIPTION_KEY='replace-with-your-subscription-key'`.
 
-```bash
-cd examples/python
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-python query_currency.py
+See [example instructions](examples/README.md) for plan queries, pagination and Drupal setup.
+Node.js and Python need no extra packages. Drupal needs an existing Drupal site.
+
+## Find a query
+
+- [Reference data](docs/queries/reference-data.md): currencies, countries, years and revision states
+- [Plans](docs/queries/plans.md): ID, year and project filters
+- [Projects and emergencies](docs/queries/projects-and-emergencies.md)
+- [Sectors and coordination entities](docs/queries/sectors-and-coordination.md)
+- [Requirements](docs/queries/requirements.md): original/current values and sector joins
+- [Organizations](docs/queries/organizations.md): names, classifications and hierarchy
+
+Read [data rules](docs/reference/data-model.md) before calculating totals.
+
+## Preview the documentation website
+
+The Markdown can be read directly on GitHub. Website preview is optional.
+
+```powershell
+python -m venv .venv
+./.venv/Scripts/python.exe -m pip install -r requirements-docs.txt
+./.venv/Scripts/python.exe -m mkdocs serve
 ```
 
-The example opens Microsoft Entra sign-in in your browser and runs a small currency query under your identity.
+Open <http://127.0.0.1:8000>. Linux/macOS uses `.venv/bin/python`.
+See [publishing instructions](docs/reference/publishing.md) for GitHub Pages.
 
-## Responsible use
+## Update the existing repository
 
-- Select only the fields you need.
-- Apply filters in the GraphQL query.
-- Start with pages of 100 records.
-- Use `hasNextPage` and `endCursor` to retrieve additional pages.
-- Avoid large, deeply nested or highly concurrent queries.
+Replace `docs/`, `examples/`, `scripts/` and `.github/workflows/` with the versions
+in this package, then replace the included root files. Replacing the folders
+removes obsolete pages rather than leaving them beside the new documentation.
+Keep the existing `.git/` and `api-schema/` folders. Review the changes before committing.
 
-## Security
-
-Do not commit or share:
-
-- Client secrets
-- Access tokens
-- APIM subscription keys
-- Database connection strings
-- Sensitive API response data
-
-Keep application credentials in an approved secret store.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) before changing the documentation or query examples.
-
-Test query changes against the current GraphQL schema before submitting them for review.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for checks before a pull request.

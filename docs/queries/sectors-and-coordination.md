@@ -1,5 +1,9 @@
 # Sectors and coordination entities
 
+Send each operation to the APIM endpoint as `query`, with the shown
+`variables` in the same JSON body. Example IDs are sample values; replace them
+with IDs from your data. Follow each collection's `hasNextPage` and `endCursor`.
+
 ## All sectors
 
 ```graphql
@@ -15,6 +19,15 @@ query Sectors($first: Int! = 100, $after: String) {
     hasNextPage
     endCursor
   }
+}
+```
+
+Variables:
+
+```json
+{
+  "first": 100,
+  "after": null
 }
 ```
 
@@ -46,6 +59,8 @@ query SectorsByPlan(
 }
 ```
 
+Variables:
+
 ```json
 {
   "planId": 1202,
@@ -53,6 +68,7 @@ query SectorsByPlan(
   "after": null
 }
 ```
+
 
 ## Sectors by project
 
@@ -80,6 +96,8 @@ query SectorsByProject(
 }
 ```
 
+Variables:
+
 ```json
 {
   "projectId": 12345,
@@ -87,6 +105,7 @@ query SectorsByProject(
   "after": null
 }
 ```
+
 
 ## Coordination entities by plan
 
@@ -135,6 +154,16 @@ query CoordinationEntitiesByPlan(
 }
 ```
 
+Variables:
+
+```json
+{
+  "planId": 1202,
+  "first": 100,
+  "after": null
+}
+```
+
 ## Coordination entities by project
 
 ```graphql
@@ -178,6 +207,16 @@ query CoordinationEntitiesByProject(
 }
 ```
 
+Variables:
+
+```json
+{
+  "projectId": 12345,
+  "first": 100,
+  "after": null
+}
+```
+
 ## Relationship note
 
 Sector membership is many-to-many and follows:
@@ -191,4 +230,3 @@ CoordinationEntity
 Do not assume a coordination entity has exactly one sector. See
 [requirement rules](../reference/data-model.md) before combining sector links
 with cost values.
-

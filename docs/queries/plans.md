@@ -1,5 +1,9 @@
 # Plan queries
 
+Send each operation to the APIM endpoint as `query`, with the shown
+`variables` in the same JSON body. Example IDs are sample values; replace them
+with IDs from your data. Follow each collection's `hasNextPage` and `endCursor`.
+
 ## First page of plans
 
 Returns basic plan details, years, and level-zero locations. The nested lists are
@@ -53,6 +57,15 @@ query Plans($first: Int! = 100, $after: String) {
 }
 ```
 
+Variables:
+
+```json
+{
+  "first": 100,
+  "after": null
+}
+```
+
 ## Plan by ID
 
 ```graphql
@@ -95,11 +108,14 @@ query PlanById($planId: Int!) {
 }
 ```
 
+Variables:
+
 ```json
 {
   "planId": 1202
 }
 ```
+
 
 ## Plans by year
 
@@ -149,6 +165,8 @@ query PlansByYear(
 }
 ```
 
+Variables:
+
 ```json
 {
   "year": 2026,
@@ -156,6 +174,7 @@ query PlansByYear(
   "after": null
 }
 ```
+
 
 ## Plan by project ID
 
@@ -192,9 +211,10 @@ query PlanByProjectId($projectId: Int!) {
 }
 ```
 
+Variables:
+
 ```json
 {
   "projectId": 12345
 }
 ```
-

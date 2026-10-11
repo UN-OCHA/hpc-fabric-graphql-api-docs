@@ -1,0 +1,37 @@
+query PlanById($planId: Int!) {
+  plans(first: 1, filter: { Id: { eq: $planId } }) {
+    items {
+      Id
+      Name
+      ShortName
+      PlanCode
+      PlanType
+      PlanCosting
+      PlanClusterType
+      PlanLanguage
+      StartDate
+      EndDate
+      IsReleased
+      IsRestricted
+      IsPartOfGHO
+      IsForHPCProjects
+
+      period(first: 10, orderBy: { CalendarYear: DESC }) {
+        items {
+          Id
+          CalendarYear
+          PeriodType
+        }
+      }
+
+      location(first: 10, filter: { AdminLevel: { eq: 0 } }) {
+        items {
+          Id
+          Name
+          ISO3
+          Pcode
+        }
+      }
+    }
+  }
+}

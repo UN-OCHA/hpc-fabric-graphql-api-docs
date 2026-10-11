@@ -1,0 +1,10 @@
+query CurrenciesPage($first: Int!, $after: String) {
+  currencies(first: $first, after: $after, orderBy: { Code: ASC }) {
+    items {
+      Id
+      Code
+    }
+    hasNextPage
+    endCursor
+  }
+}

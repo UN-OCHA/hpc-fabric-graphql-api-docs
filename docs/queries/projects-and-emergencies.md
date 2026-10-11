@@ -1,5 +1,9 @@
 # Projects and emergencies
 
+Send each operation to the APIM endpoint as `query`, with the shown
+`variables` in the same JSON body. Example IDs are sample values; replace them
+with IDs from your data. Follow each collection's `hasNextPage` and `endCursor`.
+
 ## Emergencies
 
 ```graphql
@@ -20,6 +24,15 @@ query Emergencies($first: Int! = 100, $after: String) {
     hasNextPage
     endCursor
   }
+}
+```
+
+Variables:
+
+```json
+{
+  "first": 100,
+  "after": null
 }
 ```
 
@@ -51,6 +64,8 @@ query EmergenciesByPlan(
 }
 ```
 
+Variables:
+
 ```json
 {
   "planId": 1202,
@@ -58,6 +73,7 @@ query EmergenciesByPlan(
   "after": null
 }
 ```
+
 
 ## Projects
 
@@ -79,6 +95,15 @@ query Projects($first: Int! = 100, $after: String) {
     hasNextPage
     endCursor
   }
+}
+```
+
+Variables:
+
+```json
+{
+  "first": 100,
+  "after": null
 }
 ```
 
@@ -148,6 +173,8 @@ query ProjectsByPlan(
 }
 ```
 
+Variables:
+
 ```json
 {
   "planId": 1202,
@@ -156,7 +183,6 @@ query ProjectsByPlan(
 }
 ```
 
-`CurrentRequestedFunds` is exposed at project level. The current schema does not
-expose a separate project-level original requirement or an
-organization-specific allocation amount.
 
+`CurrentRequestedFunds` is exposed at project level. These examples do not provide a separate project-level original requirement
+or an organization-specific allocation amount.

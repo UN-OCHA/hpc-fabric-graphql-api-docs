@@ -1,0 +1,13 @@
+query CurrencyByCode($code: String!) {
+  currencies(
+    first: 100
+    filter: { Code: { eq: $code } }
+  ) {
+    items {
+      Id
+      Code
+    }
+    hasNextPage
+    endCursor
+  }
+}

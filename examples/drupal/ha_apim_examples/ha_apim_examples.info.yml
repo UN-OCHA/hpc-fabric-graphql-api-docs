@@ -1,0 +1,6 @@
+name: Humanitarian Action APIM examples
+type: module
+description: Simple subscription-key GraphQL examples with a results table.
+package: Custom
+core_version_requirement: ^10.3 || ^11
+

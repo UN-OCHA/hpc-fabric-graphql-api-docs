@@ -1,7 +1,27 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Python
 .venv/
-site/
 __pycache__/
 *.pyc
-.env
-.DS_Store
 
+# .NET build output
+bin/
+obj/
+
+# Node.js dependencies and temporary runtime
+node_modules/
+node-v*-win-*/
+.npm-cache/
+
+# Generated output
+dist/
+site/
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db

@@ -1,39 +1,30 @@
 # Contributing
 
-## Documentation changes
+Keep consumer instructions centred on the APIM endpoint and subscription key.
+Use short explanations, complete queries and a variables example for each query
+that requires inputs. Keep real keys and response data out of commits.
 
-1. Create a branch for the change.
-2. Update the relevant Markdown page.
-3. Keep one documented purpose above every GraphQL example.
-4. Prefer named operations and variables over copying IDs into a query.
-5. Add `first`, `hasNextPage`, and `endCursor` to every list that might exceed
-   one page.
-6. Test the query in the Fabric GraphQL editor.
-7. Run the checks below and open a pull request.
+## Checks
 
-## Local checks
+Install `requirements-docs.txt` in a documentation environment, then run:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-python -m pip install -r requirements-docs.txt
-mkdocs build --strict
-python scripts/check_graphql.py --schema /path/to/current-schema.graphql
+python scripts/check_graphql.py
+python -m mkdocs build --strict
 ```
 
-`check_graphql.py` validates complete `graphql` code blocks against the exported
-schema. Export the schema from the Fabric GraphQL item before running the check;
-the generated schema is not kept as a second source of truth in this repository.
-Small syntax fragments used only to explain a filter should use a different
-fence such as `text` so they are not treated as complete operations.
+The first command parses complete GraphQL code blocks and the sample `.graphql`
+files. If you have a current GraphQL schema export, also run:
 
-## Query review checklist
+```bash
+python scripts/check_graphql.py --schema /path/to/schema.graphql
+```
 
-- The operation has a descriptive name.
-- External values are variables with the correct GraphQL types.
-- Large root and nested collections are paginated.
-- The query selects only fields the consumer needs.
-- The nesting depth does not exceed the Fabric maximum.
-- Requirement revision fallback and many-to-many duplication risks are handled
-  by the client where applicable.
-- No secret, token, or personal data appears in the example or its output.
+SQL files in `api-schema/` cannot be used as the GraphQL schema argument.
+Syntax checks do not confirm field availability or execute requests. Test changed
+queries through the developer portal using an appropriate subscription.
+
+When an exposed SQL view changes, review the affected queries and data rules.
+Select only needed fields, handle list pagination and avoid counting an amount
+more than once across multiple relationships. Open a pull request with the
+change and the checks performed.

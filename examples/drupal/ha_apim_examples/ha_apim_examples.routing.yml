@@ -1,0 +1,8 @@
+ha_apim_examples.form:
+  path: '/ha-apim-examples'
+  defaults:
+    _form: '\Drupal\ha_apim_examples\Form\HaApimExampleForm'
+    _title: 'Humanitarian Action API examples'
+  requirements:
+    _permission: 'access ha apim examples'
+

@@ -1,5 +1,9 @@
 # Organization queries
 
+Send each operation to the APIM endpoint as `query`, with the shown
+`variables` in the same JSON body. Example IDs are sample values; replace them
+with IDs from your data. Follow each collection's `hasNextPage` and `endCursor`.
+
 ## Organizations by name or ID
 
 Implements the SQL-style condition `Name LIKE '%ocha%' OR Id = 123` and returns
@@ -94,6 +98,8 @@ query OrganizationsByNameOrId(
 }
 ```
 
+Variables:
+
 ```json
 {
   "nameContains": "ocha",
@@ -103,8 +109,8 @@ query OrganizationsByNameOrId(
 }
 ```
 
-Substring matching behavior, including case sensitivity, follows the underlying
-Fabric data source and its collation.
+
+Substring matching behavior, including case sensitivity, follows the data source and its collation.
 
 ## Governing or coordinating organizations by plan
 
@@ -131,6 +137,14 @@ query PlanOrganizations($planId: Int!) {
       }
     }
   }
+}
+```
+
+Variables:
+
+```json
+{
+  "planId": 1202
 }
 ```
 
@@ -172,6 +186,16 @@ query OrganizationProjectRequirements(
     hasNextPage
     endCursor
   }
+}
+```
+
+Variables:
+
+```json
+{
+  "planId": 1202,
+  "first": 100,
+  "after": null
 }
 ```
 
@@ -223,6 +247,16 @@ query OrganizationClassificationValues(
     hasNextPage
     endCursor
   }
+}
+```
+
+Variables:
+
+```json
+{
+  "planId": 1202,
+  "first": 100,
+  "after": null
 }
 ```
 
@@ -283,6 +317,8 @@ query OrganizationsByTypeAndLevel(
 }
 ```
 
+Variables:
+
 ```json
 {
   "planId": 1202,
@@ -293,8 +329,9 @@ query OrganizationsByTypeAndLevel(
 }
 ```
 
-The current schema has no direct `OrganizationType` or `OrganizationLevel`
-column. This pattern applies only where those classifications are represented by
+
+These examples use categories rather than direct `OrganizationType` or
+`OrganizationLevel` fields. This pattern applies only where those classifications are represented by
 organization categories.
 
 ## Organization hierarchy edges
@@ -312,6 +349,14 @@ query OrganizationHierarchy($first: Int! = 100, $after: String) {
 }
 ```
 
+Variables:
+
+```json
+{
+  "first": 100,
+  "after": null
+}
+```
+
 The API returns parent-child edges. Calculate hierarchy depth (level 1, level 2,
 and so on) in the consuming application.
-

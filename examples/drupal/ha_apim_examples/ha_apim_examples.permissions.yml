@@ -1,0 +1,5 @@
+access ha apim examples:
+  title: 'Use the APIM example form'
+  description: 'Query the API using the server-configured subscription key.'
+  restrict access: true
+

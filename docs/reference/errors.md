@@ -1,69 +1,54 @@
-# Errors and troubleshooting
+# Troubleshooting
 
-Always capture the HTTP status, GraphQL operation name, response headers,
-duration, and top-level `errors` array. Never log bearer tokens or client-secret
-values.
+Record the HTTP status, operation name and error message. Check the GraphQL
+`errors` array even if HTTP status is 200. Do not log or share subscription keys.
 
-## Common responses
+| Result | What to check |
+| --- | --- |
+| Missing key | Set `APIM_SUBSCRIPTION_KEY` in the process running the example. |
+| HTTP 400 | Query syntax, field names, variable types and APIM validation policies. |
+| HTTP 401/403 | Key value, active subscription, product/API access and other policies. |
+| HTTP 404 | Endpoint and `/v1` path. |
+| HTTP 429 | Request limits; honor `Retry-After` and reduce concurrency. |
+| HTTP 5xx or timeout | Retry only a bounded number of times; test a smaller query. |
+| HTTP 200 with `errors` | Inspect the error message and affected field path. |
+| Empty list | Use a known ID/code; an empty result can be valid. |
 
-| Symptom | Likely cause | Action |
-| --- | --- | --- |
-| `400` validation error | Invalid field, argument, variable, depth, or policy limit | Test the smallest query; check the current schema and variable declarations |
-| `401 Unauthorized` | Missing, expired, or wrong-audience token | Sign in again; confirm the scope used for the user or service principal |
-| `403 Forbidden` | Identity lacks API or SSO data-source permission | Check **Run Queries and Mutations** and the connection mode |
-| `429 Too Many Requests` | Fabric capacity or gateway throttling | Honor `Retry-After`; reduce concurrency and page size |
-| `5xx` or internal execution error | Transient service issue or query/relationship execution problem | Retry a bounded number of times; then isolate the failing relationship |
-| HTTP `200` with `errors` | GraphQL execution or resolver failure | Treat as failure; inspect `errors[].message`, `path`, and extensions |
-
-## “The variable ... does not exist”
-
-Every referenced variable must be declared in the operation header:
+## Start with the smallest query
 
 ```graphql
-query Plans($after: String) {
-  plans(first: 100, after: $after) {
+query TestPlans {
+  plans(first: 5) {
     items {
       Id
+      Name
     }
-    hasNextPage
-    endCursor
   }
 }
 ```
 
-Send first-page variables as `{ "after": null }`, then send the returned
-`endCursor` on subsequent requests.
+Send `{ "query": "query TestPlans { plans(first: 5) { items { Id Name } } }" }`
+with `Content-Type: application/json` and the subscription-key header.
+Add fields and relationships gradually to isolate a failure.
 
-## Internal error on a nested relationship
+The C# sample buffers JSON and sends `Content-Type: application/json` with a
+known body length. This request format resolved the earlier C# validation failure;
+the exact policy trigger was not isolated.
 
-The schema can describe a relationship that fails for a particular data shape
-or becomes too expensive when several one-to-many paths are nested. Diagnose it
-systematically:
+## Variable errors
 
-1. Run only the root entity and scalar fields.
-2. Add one relationship at a time.
-3. Add a small `first` value to every relationship.
-4. Move aggregation to a separate root query.
-5. Return join keys and combine the two result sets in the client.
-6. Confirm the query stays below the ten-level depth limit.
+Declare every referenced variable in the query header and supply each required
+value in `variables`. For example, `$planId: Int!` needs an integer such as
+`1202`, not a quoted string. Start pagination with `after: null`.
 
-The documented sector-requirement query follows this split-query pattern.
+## Runtime or path errors
 
-## Query works in Fabric but not through another gateway
+- **Node is not recognized:** install Node.js or add the extracted portable
+  runtime folder to the current terminal's PATH.
+- **Python cannot find the file:** run `python3 ./examples/python/example.py`
+  from the repository root, followed by the query arguments.
+- **Drush is not recognized:** Drush is optional. Enable the module through
+  the Drupal site's Extend page. A running Drupal site and PHP are required.
 
-A gateway can impose stricter request-size, depth, rate, quota, or schema
-validation policies than Fabric. Compare the direct endpoint response with the
-gateway response and inspect gateway tracing. Do not weaken a production policy
-until the query's actual size, depth, and cost are understood.
-
-## Browser does not open for Python
-
-The example intentionally uses device-code authentication. Read the URL and code
-printed in the terminal, open the URL manually, enter the code, and sign in.
-
-## Access works for an admin but not a consumer
-
-Administrators often have broad workspace and database rights that hide missing
-consumer permissions. Test with the consumer's identity and check both the
-GraphQL item permission and, for SSO, the underlying data-source permission.
-
+If the small query still fails, send the API developers its query, variables,
+HTTP status, error message and time of the request. Omit the key.

@@ -1,5 +1,9 @@
 # Reference data queries
 
+Send each operation to the APIM endpoint as `query`, with the shown
+`variables` in the same JSON body. Example IDs are sample values; replace them
+with IDs from your data. Follow each collection's `hasNextPage` and `endCursor`.
+
 These small operations are suitable for connectivity tests and cached reference
 data. Continue pagination when `hasNextPage` is true.
 
@@ -24,6 +28,15 @@ query Currencies($first: Int! = 100, $after: String) {
 }
 ```
 
+Variables:
+
+```json
+{
+  "first": 100,
+  "after": null
+}
+```
+
 ### Currency by code
 
 ```graphql
@@ -40,11 +53,14 @@ query CurrencyByCode($code: String!) {
 }
 ```
 
+Variables:
+
 ```json
 {
   "code": "USD"
 }
 ```
+
 
 ## Countries
 
@@ -70,6 +86,15 @@ query Countries($first: Int! = 100, $after: String) {
     hasNextPage
     endCursor
   }
+}
+```
+
+Variables:
+
+```json
+{
+  "first": 100,
+  "after": null
 }
 ```
 
@@ -99,6 +124,15 @@ query Years($first: Int! = 100, $after: String) {
 }
 ```
 
+Variables:
+
+```json
+{
+  "first": 100,
+  "after": null
+}
+```
+
 ## Revision states
 
 Returns revision-state reference values used by requirement facts.
@@ -117,6 +151,14 @@ query RevisionStates($first: Int! = 100, $after: String) {
 }
 ```
 
+Variables:
+
+```json
+{
+  "first": 100,
+  "after": null
+}
+```
+
 For requirement calculations, apply the API-specific rules in
 [Data model and rules](../reference/data-model.md).
-
