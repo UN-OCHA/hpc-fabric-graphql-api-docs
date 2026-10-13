@@ -37,3 +37,12 @@ On Linux/macOS, use `export APIM_SUBSCRIPTION_KEY='your-subscription-key'` and `
 - [Organizations](docs/queries/organizations.md): names, classifications and hierarchy
 
 Read the [data rules](docs/reference/data-model.md) before calculating totals.
+
+## Explore the API schema
+
+The [GraphQL schema](api-schema/api_schema.graphql) lists the queries, fields,
+filters and relationships available in the API. Use it to check field names and
+types when writing a query or configuring editor autocomplete.
+
+Start with the [schema guide](api-schema/README.md). The tested examples above
+are the quickest way to make your first request.
