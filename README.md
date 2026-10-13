@@ -2,13 +2,13 @@
 
 Documentation, GraphQL queries and working client examples for the Humanitarian Action API.
 
-Endpoint: `https://hpc-apims.azure-api.net/v1`
+Endpoint: `https://api.humanitarianaction.info/graphql/v1`
 
-Developer portal: <https://hpc-apims.developer.azure-api.net/>
+Developer portal and documentation: <https://developer-api.humanitarianaction.info>
 
 ## Get started
 
-1. Register on the developer portal with any valid email address and a password.
+1. Open the developer portal. OCHA users sign in with their `@un.org` account using Microsoft Entra ID. External users sign up with their email address and a password.
 2. Subscribe to the API product and obtain a subscription key; approval may be required.
    Alternatively, ask the API developers for a key or use the key shared with you.
 3. Follow the [quick start](docs/getting-started/quick-start.md).
