@@ -2,12 +2,11 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
-// Register at https://hpc-apims.developer.azure-api.net/ with any valid
-// email/password and subscribe for a key, or ask the API developers.
+// Sign in at https://developer-api.humanitarianaction.info and subscribe for a key.
 // Set APIM_SUBSCRIPTION_KEY in your environment. Keep real keys out of Git.
 
 string endpoint = Environment.GetEnvironmentVariable("APIM_ENDPOINT")
-    ?? "https://hpc-apims.azure-api.net/v1";
+    ?? "https://api.humanitarianaction.info/graphql/v1";
 
 string? subscriptionKey =
     Environment.GetEnvironmentVariable("APIM_SUBSCRIPTION_KEY")?.Trim();

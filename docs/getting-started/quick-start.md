@@ -2,8 +2,9 @@
 
 ## 1. Obtain a subscription key
 
-Register at <https://hpc-apims.developer.azure-api.net/> with any valid email address
-and a password. Confirm your email if prompted and subscribe to the API product.
+OCHA users sign in at <https://developer-api.humanitarianaction.info> with their
+`@un.org` account using Microsoft Entra ID. External users sign up with their
+email address and a password. Subscribe to the API product.
 If approval is required, wait for approval, then copy the key from your profile.
 Alternatively, ask the API developers for a key or use the key shared with you.
 
@@ -14,7 +15,7 @@ The portal password is for signing in to the portal. API requests use the key.
 Use this endpoint and headers in your HTTP client:
 
 ```http
-POST https://hpc-apims.azure-api.net/v1
+POST https://api.humanitarianaction.info/graphql/v1
 Content-Type: application/json
 Ocp-Apim-Subscription-Key: <your-subscription-key>
 ```
@@ -76,7 +77,7 @@ See [client examples](../clients.md) for C#, Node.js and Drupal.
 
 Copy an operation from the [query catalogue](../queries/reference-data.md).
 Send the query text as `query` and its values as `variables` in the JSON body.
-All operations use the same `/v1` endpoint.
+All operations use the same `/graphql/v1` endpoint.
 
 Keep the key in your process environment or hosting platform's secret settings.
 Do not put it in committed source files, published JavaScript or request URLs.

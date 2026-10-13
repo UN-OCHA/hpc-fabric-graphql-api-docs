@@ -11,7 +11,7 @@ SQL view definitions are not a GraphQL schema export. The developer portal's
 published GraphQL schema describes the callable fields, relationships, argument
 names, variable types and pagination objects. Consult it when writing a query.
 
-Consumers call `https://hpc-apims.azure-api.net/v1` with their subscription key.
+Consumers call `https://api.humanitarianaction.info/graphql/v1` with their subscription key.
 The view files are reference material, not a separate access route.
 
 When an exposed view changes, review the affected query examples and data rules.

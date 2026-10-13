@@ -1,11 +1,10 @@
 # Node.js example
 
-Register at <https://hpc-apims.developer.azure-api.net/> with **any valid email
-address and a password**, then subscribe to the API product for a subscription
-key (approval may be required). Alternatively ask the API developers for a key,
-or use the key shared with you.
+OCHA users sign in at <https://developer-api.humanitarianaction.info> with
+their `@un.org` account using Microsoft Entra ID. External users sign up with
+email and password. Subscribe for a key (approval may be required).
 
-Endpoint: `https://hpc-apims.azure-api.net/v1`.
+Endpoint: `https://api.humanitarianaction.info/graphql/v1`.
 
 Install **Node.js 22.12+**. Set `APIM_SUBSCRIPTION_KEY` as explained in the
 [root README](../README.md#configure-the-terminal-and-server-examples).

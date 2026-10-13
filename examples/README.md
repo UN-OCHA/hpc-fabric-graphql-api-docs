@@ -2,15 +2,15 @@
 
 Simple C#, Node.js, Python and Drupal (PHP) examples using GraphQL through Azure API Management.
 
-API endpoint: `https://hpc-apims.azure-api.net/v1`
+API endpoint: `https://api.humanitarianaction.info/graphql/v1`
 
-Developer portal: <https://hpc-apims.developer.azure-api.net/>
+Developer portal: <https://developer-api.humanitarianaction.info>
 
 ## Get a subscription key
 
-Register on the developer portal with any valid email address and a password,
-confirm your email if prompted, and subscribe to the API product. If approval is
-required, wait for approval, then copy the subscription key from your profile.
+OCHA users sign in with their `@un.org` account using Microsoft Entra ID.
+External users sign up with an email address and a password. Subscribe to the
+API product and copy the subscription key from your profile (approval may be required).
 Alternatively, ask the API developers for a key or use the key shared with you.
 
 API requests use the `Ocp-Apim-Subscription-Key` header. Keep real keys out of Git.
@@ -43,7 +43,7 @@ Bash (Linux/macOS):
 export APIM_SUBSCRIPTION_KEY='replace-with-your-subscription-key'
 ```
 
-The endpoint defaults to `https://hpc-apims.azure-api.net/v1`.
+The endpoint defaults to `https://api.humanitarianaction.info/graphql/v1`.
 Set `APIM_ENDPOINT` only if you need a different endpoint.
 For Drupal, configure these variables in the web/PHP process environment;
 setting them in an unrelated terminal does not configure the website.
@@ -96,11 +96,9 @@ it does not paginate those nested collections.
 | Missing key | Set `APIM_SUBSCRIPTION_KEY` in the process running the example. |
 | HTTP 400 or GraphQL errors | Query fields, variable types and API validation policies. |
 | HTTP 401/403 | Subscription key, approval and access to the API. |
-| HTTP 404 | Endpoint and `/v1` path. |
+| HTTP 404 | Endpoint and `/graphql/v1` path. |
 | HTTP 429 | Request limits; follow the response or API owner's guidance. |
 | Empty result | Try a known currency code or plan ID. |
 
 Requests have a 110-second client timeout and do not retry automatically.
 These examples do not require browser CORS configuration.
-Review staged files before committing; the included `.gitignore` excludes
-local secrets, dependencies and build output.

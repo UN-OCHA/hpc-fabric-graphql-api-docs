@@ -8,7 +8,7 @@ Record the HTTP status, operation name and error message. Check the GraphQL
 | Missing key | Set `APIM_SUBSCRIPTION_KEY` in the process running the example. |
 | HTTP 400 | Query syntax, field names, variable types and APIM validation policies. |
 | HTTP 401/403 | Key value, active subscription, product/API access and other policies. |
-| HTTP 404 | Endpoint and `/v1` path. |
+| HTTP 404 | Endpoint and `/graphql/v1` path. |
 | HTTP 429 | Request limits; honor `Retry-After` and reduce concurrency. |
 | HTTP 5xx or timeout | Retry only a bounded number of times; test a smaller query. |
 | HTTP 200 with `errors` | Inspect the error message and affected field path. |

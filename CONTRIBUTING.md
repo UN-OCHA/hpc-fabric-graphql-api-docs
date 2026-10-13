@@ -26,5 +26,4 @@ queries through the developer portal using an appropriate subscription.
 
 When an exposed SQL view changes, review the affected queries and data rules.
 Select only needed fields, handle list pagination and avoid counting an amount
-more than once across multiple relationships. Open a pull request with the
-change and the checks performed.
+more than once across multiple relationships.

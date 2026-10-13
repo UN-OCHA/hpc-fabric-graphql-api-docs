@@ -1,10 +1,9 @@
-// Register at https://hpc-apims.developer.azure-api.net/ with any valid email
-// address and a password, then subscribe to the API product for a key.
+// Sign in at https://developer-api.humanitarianaction.info and subscribe for a key.
 // Alternatively ask the API developers for a key, or use the key shared with you.
 // Set APIM_SUBSCRIPTION_KEY in your environment. Never commit a real key.
 import { readFile } from "node:fs/promises";
 
-const endpoint = process.env.APIM_ENDPOINT || "https://hpc-apims.azure-api.net/v1";
+const endpoint = process.env.APIM_ENDPOINT || "https://api.humanitarianaction.info/graphql/v1";
 const key = process.env.APIM_SUBSCRIPTION_KEY?.trim();
 const [example = "currency", value, limit] = process.argv.slice(2);
 
@@ -42,13 +41,13 @@ function positiveInteger(value, name) {
 async function main() {
   if (example === "--help" || example === "-h") {
     console.log("node example.mjs currency USD | plan 1202 | currencies 100 1000");
-    console.log("Register with an email/password and subscribe at https://hpc-apims.developer.azure-api.net/ for a key.");
+    console.log("Sign in and subscribe at https://developer-api.humanitarianaction.info for a key.");
     return;
   }
   if (!["currency", "plan", "currencies"].includes(example))
     throw new Error("Choose currency, plan, or currencies. Use --help.");
   if (!key || key === "replace-with-your-subscription-key")
-    throw new Error("Set APIM_SUBSCRIPTION_KEY. Register with an email/password and subscribe at https://hpc-apims.developer.azure-api.net/, or ask the API developers for a key.");
+    throw new Error("Set APIM_SUBSCRIPTION_KEY. Sign in and subscribe at https://developer-api.humanitarianaction.info, or ask the API developers for a key.");
 
   let result;
   if (example === "currency") {

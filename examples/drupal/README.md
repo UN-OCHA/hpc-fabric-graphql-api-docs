@@ -1,11 +1,10 @@
 # Drupal (PHP) example
 
-Register at <https://hpc-apims.developer.azure-api.net/> with **any valid email
-address and a password**, then subscribe to the API product for a subscription
-key (approval may be required). Alternatively ask the API developers for a key,
-or use the key shared with you.
+OCHA users sign in at <https://developer-api.humanitarianaction.info> with
+their `@un.org` account using Microsoft Entra ID. External users sign up with
+email and password. Subscribe for a key (approval may be required).
 
-Endpoint: `https://hpc-apims.azure-api.net/v1`.
+Endpoint: `https://api.humanitarianaction.info/graphql/v1`.
 
 This is a small custom module for an **existing Drupal 10.3+/11 site**. Use the
 PHP version supported by your installed Drupal version. There is no separate
@@ -14,7 +13,7 @@ Drupal installation or additional Composer dependency in this package.
 1. Copy the entire `ha_apim_examples/` folder into your site's
    `web/modules/custom/` directory (or `modules/custom/` if that is your Drupal root).
 2. Configure `APIM_SUBSCRIPTION_KEY` in the **web/PHP process environment**.
-   Optionally set `APIM_ENDPOINT=https://hpc-apims.azure-api.net/v1`.
+   Optionally set `APIM_ENDPOINT=https://api.humanitarianaction.info/graphql/v1`.
    Use your hosting platform's environment/application settings and restart the
    PHP workers if required. Exporting a variable in a terminal alone does not
    configure an existing PHP-FPM/Apache process. PHP-FPM must allow the configured

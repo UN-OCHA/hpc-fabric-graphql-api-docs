@@ -3,9 +3,9 @@
 Query reference data, plans, projects, emergencies, sectors, coordination entities,
 requirements and organizations using GraphQL through Azure API Management (APIM).
 
-Endpoint: `https://hpc-apims.azure-api.net/v1`
+Endpoint: `https://api.humanitarianaction.info/graphql/v1`
 
-Developer portal: <https://hpc-apims.developer.azure-api.net/>
+Developer portal: <https://developer-api.humanitarianaction.info>
 
 ## Start here
 

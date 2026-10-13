@@ -6,8 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Register at https://hpc-apims.developer.azure-api.net/ with any valid email
- * address and a password, then subscribe to the API product for a key.
+ * Sign in at https://developer-api.humanitarianaction.info and subscribe for a key.
  * Alternatively ask the API developers for a key, or use the key shared with you.
  * Set APIM_SUBSCRIPTION_KEY in the web/PHP process environment; never commit it.
  * All HTTP requests happen on the Drupal server. The browser never receives the key.
@@ -21,10 +20,10 @@ class HaApimExampleForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['instructions'] = [
       '#type' => 'container',
-      'text' => ['#plain_text' => 'Register on the developer portal with any valid email address and a password, then subscribe for a key. Alternatively ask the API developers or use the key shared with you. Configure the key on the Drupal server.'],
-      'portal' => ['#type' => 'link', '#title' => 'Open developer portal', '#url' => \Drupal\Core\Url::fromUri('https://hpc-apims.developer.azure-api.net/')],
+      'text' => ['#plain_text' => 'OCHA users sign in with Microsoft Entra ID; external users sign up with email and password. Subscribe for a key. Alternatively ask the API developers or use the key shared with you. Configure the key on the Drupal server.'],
+      'portal' => ['#type' => 'link', '#title' => 'Open developer portal', '#url' => \Drupal\Core\Url::fromUri('https://developer-api.humanitarianaction.info')],
     ];
-    $form['endpoint'] = ['#plain_text' => 'API endpoint: https://hpc-apims.azure-api.net/v1'];
+    $form['endpoint'] = ['#plain_text' => 'API endpoint: https://api.humanitarianaction.info/graphql/v1'];
     $form['example'] = [
       '#type' => 'select', '#title' => $this->t('Query'),
       '#options' => ['currency' => 'Currency by code', 'plan' => 'Plan by ID', 'currencies' => 'Paginated currencies'],
@@ -76,7 +75,7 @@ class HaApimExampleForm extends FormBase {
     if ($query === FALSE) {
       throw new \RuntimeException('Could not read the query file.');
     }
-    $endpoint = getenv('APIM_ENDPOINT') ?: 'https://hpc-apims.azure-api.net/v1';
+    $endpoint = getenv('APIM_ENDPOINT') ?: 'https://api.humanitarianaction.info/graphql/v1';
     $response = \Drupal::httpClient()->post($endpoint, [
       'headers' => ['Accept' => 'application/json', 'Content-Type' => 'application/json', 'Ocp-Apim-Subscription-Key' => $key],
       'json' => ['query' => $query, 'variables' => $variables],
@@ -102,7 +101,7 @@ class HaApimExampleForm extends FormBase {
     try {
       $key = trim(getenv('APIM_SUBSCRIPTION_KEY') ?: '');
       if ($key === '' || $key === 'replace-with-your-subscription-key') {
-        throw new \RuntimeException('Configure APIM_SUBSCRIPTION_KEY on the server. Register with an email/password and subscribe at https://hpc-apims.developer.azure-api.net/, or ask the API developers for a key.');
+        throw new \RuntimeException('Configure APIM_SUBSCRIPTION_KEY on the server. Sign in and subscribe at https://developer-api.humanitarianaction.info, or ask the API developers for a key.');
       }
       $example = $form_state->getValue('example');
       $has_next_page = FALSE;

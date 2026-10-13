@@ -1,7 +1,6 @@
 """Simple APIM GraphQL examples; uses only the Python standard library.
 
-Register at https://hpc-apims.developer.azure-api.net/ with any valid email
-address and a password, then subscribe to the API product for a key.
+Sign in at https://developer-api.humanitarianaction.info and subscribe for a key.
 Alternatively ask the API developers for a key, or use the key shared with you.
 Set APIM_SUBSCRIPTION_KEY in your environment. Never commit a real key.
 """
@@ -13,7 +12,7 @@ import sys
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-ENDPOINT = os.getenv("APIM_ENDPOINT") or "https://hpc-apims.azure-api.net/v1"
+ENDPOINT = os.getenv("APIM_ENDPOINT") or "https://api.humanitarianaction.info/graphql/v1"
 QUERY_FOLDER = Path(__file__).resolve().parent.parent / "queries"
 
 
@@ -46,8 +45,8 @@ def execute(query_file, variables, key):
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description=(
-        "APIM examples. Register with an email/password and subscribe at "
-        "https://hpc-apims.developer.azure-api.net/ for a key, or ask the API developers."
+        "APIM examples. Sign in and subscribe at "
+        "https://developer-api.humanitarianaction.info for a key, or ask the API developers."
     ))
     parser.add_argument("example", nargs="?", default="currency", choices=["currency", "plan", "currencies"])
     parser.add_argument("value", nargs="?", help="Currency code, plan ID, or page size.")
@@ -55,7 +54,7 @@ def main():
     args = parser.parse_args()
     key = (os.getenv("APIM_SUBSCRIPTION_KEY") or "").strip()
     if not key or key == "replace-with-your-subscription-key":
-        raise ValueError("Set APIM_SUBSCRIPTION_KEY. Register with an email/password and subscribe at https://hpc-apims.developer.azure-api.net/, or ask the API developers for a key.")
+        raise ValueError("Set APIM_SUBSCRIPTION_KEY. Sign in and subscribe at https://developer-api.humanitarianaction.info, or ask the API developers for a key.")
     if args.example == "currency":
         code = (args.value if args.value is not None else "USD").strip().upper()
         if not code:

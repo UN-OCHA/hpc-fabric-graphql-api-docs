@@ -1,6 +1,6 @@
 # Client examples
 
-All examples use `https://hpc-apims.azure-api.net/v1` and the
+All examples use `https://api.humanitarianaction.info/graphql/v1` and the
 `Ocp-Apim-Subscription-Key` header. [Obtain a key](getting-started/quick-start.md)
 before running them.
 
