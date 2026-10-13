@@ -5,6 +5,8 @@ Humanitarian Action GraphQL API. It describes what a client can query: operation
 fields, types, filters, sorting and relationships. You can read it in a text editor
 or use it with a GraphQL editor for field suggestions and query validation.
 
+Note: The developer portal includes a visual tool for exploring the API.
+
 ## Find what you need
 
 1. Search for `type Query` to find an operation, such as `plans`. Its arguments
