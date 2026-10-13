@@ -4,9 +4,8 @@
 
 OCHA users sign in at <https://developer-api.humanitarianaction.info> with their
 `@un.org` account using Microsoft Entra ID. External users sign up with their
-email address and a password. Subscribe to the API product.
-If approval is required, wait for approval, then copy the key from your profile.
-Alternatively, ask the API developers for a key or use the key shared with you.
+email address and a password. Ask the API team for access. We will add you to
+the API product and give you a subscription key.
 
 The portal password is for signing in to the portal. API requests use the key.
 

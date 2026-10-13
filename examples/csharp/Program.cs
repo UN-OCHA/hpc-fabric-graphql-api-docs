@@ -2,7 +2,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
-// Sign in at https://developer-api.humanitarianaction.info and subscribe for a key.
+// Sign in at https://developer-api.humanitarianaction.info and ask the API team for a key.
 // Set APIM_SUBSCRIPTION_KEY in your environment. Keep real keys out of Git.
 
 string endpoint = Environment.GetEnvironmentVariable("APIM_ENDPOINT")

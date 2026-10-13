@@ -2,7 +2,8 @@
 
 OCHA users sign in at <https://developer-api.humanitarianaction.info> with
 their `@un.org` account using Microsoft Entra ID. External users sign up with
-email and password. Subscribe for a key (approval may be required).
+email and password. Ask the API team for access. We will add you to the API
+product and give you a subscription key.
 
 Endpoint: `https://api.humanitarianaction.info/graphql/v1`.
 

@@ -1,7 +1,6 @@
 """Simple APIM GraphQL examples; uses only the Python standard library.
 
-Sign in at https://developer-api.humanitarianaction.info and subscribe for a key.
-Alternatively ask the API developers for a key, or use the key shared with you.
+Sign in at https://developer-api.humanitarianaction.info and ask the API team for a key.
 Set APIM_SUBSCRIPTION_KEY in your environment. Never commit a real key.
 """
 import argparse
@@ -45,8 +44,8 @@ def execute(query_file, variables, key):
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description=(
-        "APIM examples. Sign in and subscribe at "
-        "https://developer-api.humanitarianaction.info for a key, or ask the API developers."
+        "APIM examples. Sign in at https://developer-api.humanitarianaction.info "
+        "and ask the API team for a key."
     ))
     parser.add_argument("example", nargs="?", default="currency", choices=["currency", "plan", "currencies"])
     parser.add_argument("value", nargs="?", help="Currency code, plan ID, or page size.")
@@ -54,7 +53,7 @@ def main():
     args = parser.parse_args()
     key = (os.getenv("APIM_SUBSCRIPTION_KEY") or "").strip()
     if not key or key == "replace-with-your-subscription-key":
-        raise ValueError("Set APIM_SUBSCRIPTION_KEY. Sign in and subscribe at https://developer-api.humanitarianaction.info, or ask the API developers for a key.")
+        raise ValueError("Set APIM_SUBSCRIPTION_KEY. Ask the API team to add you to the product and give you a key.")
     if args.example == "currency":
         code = (args.value if args.value is not None else "USD").strip().upper()
         if not code:

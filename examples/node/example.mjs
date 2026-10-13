@@ -1,5 +1,4 @@
-// Sign in at https://developer-api.humanitarianaction.info and subscribe for a key.
-// Alternatively ask the API developers for a key, or use the key shared with you.
+// Sign in at https://developer-api.humanitarianaction.info and ask the API team for a key.
 // Set APIM_SUBSCRIPTION_KEY in your environment. Never commit a real key.
 import { readFile } from "node:fs/promises";
 
@@ -41,13 +40,13 @@ function positiveInteger(value, name) {
 async function main() {
   if (example === "--help" || example === "-h") {
     console.log("node example.mjs currency USD | plan 1202 | currencies 100 1000");
-    console.log("Sign in and subscribe at https://developer-api.humanitarianaction.info for a key.");
+    console.log("Sign in at https://developer-api.humanitarianaction.info and ask the API team for a key.");
     return;
   }
   if (!["currency", "plan", "currencies"].includes(example))
     throw new Error("Choose currency, plan, or currencies. Use --help.");
   if (!key || key === "replace-with-your-subscription-key")
-    throw new Error("Set APIM_SUBSCRIPTION_KEY. Sign in and subscribe at https://developer-api.humanitarianaction.info, or ask the API developers for a key.");
+    throw new Error("Set APIM_SUBSCRIPTION_KEY. Ask the API team to add you to the product and give you a key.");
 
   let result;
   if (example === "currency") {

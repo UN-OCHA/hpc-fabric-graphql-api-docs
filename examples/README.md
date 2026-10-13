@@ -9,9 +9,8 @@ Developer portal: <https://developer-api.humanitarianaction.info>
 ## Get a subscription key
 
 OCHA users sign in with their `@un.org` account using Microsoft Entra ID.
-External users sign up with an email address and a password. Subscribe to the
-API product and copy the subscription key from your profile (approval may be required).
-Alternatively, ask the API developers for a key or use the key shared with you.
+External users sign up with an email address and a password. Ask the API team
+for access. We will add you to the API product and give you a subscription key.
 
 API requests use the `Ocp-Apim-Subscription-Key` header. Keep real keys out of Git.
 
@@ -95,7 +94,7 @@ it does not paginate those nested collections.
 | --- | --- |
 | Missing key | Set `APIM_SUBSCRIPTION_KEY` in the process running the example. |
 | HTTP 400 or GraphQL errors | Query fields, variable types and API validation policies. |
-| HTTP 401/403 | Subscription key, approval and access to the API. |
+| HTTP 401/403 | Subscription key and access to the API product. |
 | HTTP 404 | Endpoint and `/graphql/v1` path. |
 | HTTP 429 | Request limits; follow the response or API owner's guidance. |
 | Empty result | Try a known currency code or plan ID. |

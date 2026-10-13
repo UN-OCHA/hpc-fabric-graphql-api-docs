@@ -10,7 +10,7 @@ Developer portal and documentation: <https://developer-api.humanitarianaction.in
 
 1. OCHA users: sign in to the developer portal with your `@un.org` account using Microsoft Entra ID.
 2. External users: sign up on the developer portal with your email address and a password.
-3. Subscribe to the API product and copy your subscription key from your profile. Approval may be required.
+3. Ask the API team for access. We will add you to the API product and give you a subscription key.
 
 Send the key in the `Ocp-Apim-Subscription-Key` header. Keep it out of source code and public pages.
 
