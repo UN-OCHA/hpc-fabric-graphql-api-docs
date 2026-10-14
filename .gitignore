@@ -25,3 +25,6 @@ site/
 *.log
 .DS_Store
 Thumbs.db
+
+# api portal images and other assests, not to track
+/portal-assets/
